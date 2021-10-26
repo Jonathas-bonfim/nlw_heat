@@ -13,6 +13,15 @@ export const styles = StyleSheet.create({
     lineHeight: 20,
     marginBottom: 12
   },
-
-
+  footer: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  userName: {
+    fontSize: 15,
+    fontFamily: FONTS.REGULAR,
+    color: COLORS.WHITE,
+    marginLeft: 16,
+  },
 });

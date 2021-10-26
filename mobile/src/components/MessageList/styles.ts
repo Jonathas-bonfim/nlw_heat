@@ -3,16 +3,13 @@ import { COLORS, FONTS } from '../../theme';
 
 export const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    marginBottom: 36,
+    flex: 1,
+    paddingHorizontal: 20,
+
   },
-  message: {
-    fontSize: 15,
-    fontFamily: FONTS.REGULAR,
-    color: COLORS.WHITE,
-    lineHeight: 20,
-    marginBottom: 12
-  },
-  
+  content: {
+    paddingTop: 135,
+    paddingBottom: 184,
+  }
 
 });
