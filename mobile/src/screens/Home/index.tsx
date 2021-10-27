@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Header } from '../../components/Header';
 import { MessageList } from '../../components/MessageList';
 import { SingInBox } from '../../components/SingInBox';
+import { SendMessages } from '../../components/SendMessages';
 
 import { styles } from './styles';
 
