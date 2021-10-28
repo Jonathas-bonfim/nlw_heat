@@ -14,7 +14,7 @@ type User = {
 
 type AuthContextData = {
   user: User | null;
-  isSingIng: boolean;
+  isSingIn: boolean;
   singIn: () => Promise<void>;
   singOut: () => Promise<void>;
 }
@@ -37,14 +37,22 @@ type AuthorizationResponse = {
 export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [isSingIng, setIsSingIng] = useState(false);
+  const [isSingIn, setIsSingIn] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
 
   async function singIn() {
+    setIsSingIn(true);
+
     const authUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=${SCOPE}`;
     const { params } = await AuthSessions.startAsync({ authUrl }) as AuthorizationResponse;
     console.log(params)
+
+    if (params && params.code) {
+      const AuthResponse = 
+    }
+
+    setIsSingIn(false);
   };
 
   async function singOut() {
@@ -57,7 +65,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         singIn,
         singOut,
         user,
-        isSingIng
+        isSingIn
       }}
     >
 
