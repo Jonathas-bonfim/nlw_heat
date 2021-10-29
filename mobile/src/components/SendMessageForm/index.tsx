@@ -8,7 +8,7 @@ import { Button } from '../Button';
 
 import { styles } from './styles';
 
-export function SendMessages() {
+export function SendMessageForm() {
   const [message, setMessage] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false)
 

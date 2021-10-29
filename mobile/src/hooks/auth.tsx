@@ -18,9 +18,9 @@ type User = {
 
 type AuthContextData = {
   user: User | null;
-  isSingIn: boolean;
-  singIn: () => Promise<void>;
-  singOut: () => Promise<void>;
+  isSigningIn: boolean;
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
 }
 
 type AuthProviderProps = {
@@ -43,13 +43,13 @@ type AuthorizationResponse = {
 export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [isSingIn, setIsSingIn] = useState(true);
+  const [isSigningIn, setIsSigningIn] = useState(true);
   const [user, setUser] = useState<User | null>(null);
 
 
-  async function singIn() {
+  async function signIn() {
     try {
-      setIsSingIn(true);
+      setIsSigningIn(true);
 
       const authUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=${SCOPE}`;
       const authSessionResponse = await AuthSessions.startAsync({ authUrl }) as AuthorizationResponse;
@@ -64,21 +64,23 @@ function AuthProvider({ children }: AuthProviderProps) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         // salvando as informações locais
         await AsyncStorage.setItem(USER_STORAGE, JSON.stringify(user));
-        await AsyncStorage.setItem(USER_STORAGE, JSON.stringify(token));
+        await AsyncStorage.setItem(TOKEN_STORAGE, token);
 
         setUser(user);
       }
     } catch (error) {
       console.log(error);
     } finally {
-      setIsSingIn(false);
+      setIsSigningIn(false);
     }
 
 
   };
 
-  async function singOut() {
-
+  async function signOut() {
+    setUser(null);
+    await AsyncStorage.removeItem(USER_STORAGE);
+    await AsyncStorage.removeItem(TOKEN_STORAGE);
   }
 
   useEffect(() => {
@@ -91,7 +93,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         //  transformando o arquivo de String para JSON
         setUser(JSON.parse(userStorage));
       }
-      setIsSingIn(false);
+      setIsSigningIn(false);
     }
 
     loadUserStorageData();
@@ -100,10 +102,10 @@ function AuthProvider({ children }: AuthProviderProps) {
   return (
     <AuthContext.Provider
       value={{
-        singIn,
-        singOut,
+        signIn,
+        signOut,
         user,
-        isSingIn
+        isSigningIn
       }}
     >
 
@@ -119,4 +121,3 @@ function useAuth() {
 }
 
 export { AuthProvider, useAuth }
-

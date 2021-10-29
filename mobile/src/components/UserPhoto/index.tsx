@@ -20,14 +20,14 @@ const SIZES = {
 }
 
 type Props = {
-  imageURI: string | undefined;
+  imageUri: string | undefined;
   sizes?: 'SMALL' | 'NORMAL';
 }
 
 const AVATAR_DEFAULT = Image.resolveAssetSource(avatarImg).uri;
 
 // definindo a propriedade padrão como normal
-export function UserPhoto({ imageURI, sizes = 'NORMAL' }: Props) {
+export function UserPhoto({ imageUri, sizes = 'NORMAL' }: Props) {
   const { containerSize, avatarSize } = SIZES[sizes];
   return (
     <LinearGradient
@@ -47,7 +47,7 @@ export function UserPhoto({ imageURI, sizes = 'NORMAL' }: Props) {
       ]}
     >
       <Image
-        source={{ uri: imageURI || AVATAR_DEFAULT }}
+        source={{ uri: imageUri || AVATAR_DEFAULT }}
         style={[
           styles.avatar,
           {
