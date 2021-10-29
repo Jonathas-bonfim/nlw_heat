@@ -6,13 +6,15 @@ import { SingInBox } from '../../components/SingInBox';
 import { SendMessages } from '../../components/SendMessages';
 
 import { styles } from './styles';
+import { useAuth } from '../../hooks/auth';
 
 export function Home() {
+  const user = useAuth;
   return (
     <View style={styles.container}>
       <Header />
       <MessageList />
-      <SingInBox />
+      {user ? <SendMessages /> : <SingInBox />}
     </View>
   )
 }

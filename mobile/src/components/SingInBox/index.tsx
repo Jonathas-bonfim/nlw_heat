@@ -8,7 +8,7 @@ import { COLORS } from '../../theme';
 import { styles } from './styles';
 
 export function SingInBox() {
-  const { singIn } = useAuth();
+  const { singIn, isSingIn } = useAuth();
   return (
     <View style={styles.container}>
       <Button
@@ -17,6 +17,7 @@ export function SingInBox() {
         backgroundColor={COLORS.YELLOW}
         icon="github"
         onPress={singIn}
+        isLoading={isSingIn}
       />
     </View>
   );
